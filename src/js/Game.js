@@ -22,9 +22,9 @@ export default class Game{
     var rest = this.deck.pullCards(this.deck.getCount());
     this.pile.addCards(rest);
     this.gamepile.addCards(this.pile.getCards());
-    console.log("First card on the game pile is " + this.gamepile.cards[0].value + " of " + this.gamepile.cards[0].suit);
-    this.playRound();
+    console.log("First card on the game pile is " + this.gamepile.cards[0].value + " of " + this.gamepile.cards[0].suit + "'s");
 
+    this.playRound();
     this.gameloop = setInterval(() => {
       if (!this.ended) {
         this.playRound();
@@ -60,6 +60,7 @@ export default class Game{
         }else if(this.pile.getCount() > 0){
           var pulledCard = this.pile.getCards();
           player.addCards(pulledCard);
+          console.log(player.getName() + " pulled a " + pulledCard[0].value + " of " + pulledCard[0].suit + "'s");
         }else{
           console.log("No playable cards and no cards left in pile.");
           player.setCanplay(false);
