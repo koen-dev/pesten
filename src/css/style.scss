@@ -1,0 +1,82 @@
+@import "variables";
+$cardwidth: 112;
+
+html, body{
+  padding: 0;
+  margin: 0;
+  height: 100%;
+}
+
+body{
+  min-height: 100%;
+  position: relative;
+  background-color: #2B6945;
+}
+
+#playboard{
+  padding: 20px;
+  padding-bottom: 200px;
+  .card{
+    background-color: white;
+    height: 150px;
+    width: #{$cardwidth}px;
+    border-radius: 5px;
+    @include dropshadow(1);
+  }
+  #players{
+    ul{
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+      li{
+        padding: 3px;
+        display: inline-block;
+        position: relative;
+        background-size: cover;
+        background-repeat: no-repeat;
+        &:nth-child(n){
+          margin-left: -#{$cardwidth - 15}px;
+        }
+        &:first-of-type{
+          margin-left: 0;
+        }
+        &.clubs{
+        }
+        &.diamonds{
+        }
+        &.hearts{
+        }
+        &.spades{
+
+        }
+        .value{
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+          &:first-of-type{
+            top: 3px;
+            left: 3px;
+          }
+        }
+      }
+    }
+  }
+}
+
+#log{
+  background-color: white;
+  list-style: none;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 200px;
+  li{
+    padding: 5px;
+  }
+}

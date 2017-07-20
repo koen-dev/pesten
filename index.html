@@ -4,10 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="dist/styles.css">
   <title>Document</title>
 </head>
 <body>
+  <div id="playboard">
+    <div id="players">
+      <ul id="player-1">
+        <li class="card diamonds">
+          <span class="value">K</span>
+          <span class="value">K</span>
+        </li>
+        <li class="card spades">
+          <span class="value">10</span>
+          <span class="value">10</span>
+        </li>
+        <li class="card clubs">
+          <span class="value">A</span>
+          <span class="value">A</span>
+        </li>
+        <li class="card hearts">
+          <span class="value">J</span>
+          <span class="value">J</span>
+        </li>
+        <li class="card spades">
+          <span class="value">2</span>
+          <span class="value">2</span>
+        </li>
+      </ul>
+      <ul id="player-2">
+        <li class="card">
+          <span class="value">K</span>
+        </li>
+        <li class="card">
+          <span class="value">10</span>
+        </li>
+        <li class="card">
+          <span class="value">A</span>
+        </li>
+        <li class="card">
+          <span class="value">J</span>
+        </li>
+        <li class="card">
+          <span class="value">2</span>
+        </li>
+      </ul>
+      <ul id="player-3"></ul>
+      <ul id="player-4"></ul>
+    </div>
+  </div>
+  <ul id="log"></ul>
   <!-- Scripts -->
-  <script src="src/js/app.js" charset="utf-8"></script>
+  <script src="dist/app.js" charset="utf-8"></script>
 </body>
 </html>
