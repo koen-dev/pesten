@@ -25,6 +25,9 @@ body{
     @include dropshadow(1);
   }
   #players{
+    h3{
+      color: white;
+    }
     ul{
       list-style: none;
       padding: 0;

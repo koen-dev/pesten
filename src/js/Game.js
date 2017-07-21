@@ -4,19 +4,30 @@ import {GamePile, PickPile} from './Piles';
 
 export default class Game{
   constructor(){
-    this.deck = new Deck();
+
     this.pile = new PickPile();
     this.gamepile = new GamePile();
     this.players = [new Player("Koen"), new Player("Peter"), new Player("Jan"),
      new Player("Klaas")];
-    this.ended = false;
-    this.round = 0;
+    this.listeners = [];
+  }
+
+  addListener(fn){
+    this.listeners.push(fn);
+  }
+
+  update(){
+    this.listeners.forEach(fn => fn());
   }
 
   start(playcards = 7, speed = 0){
+    this.deck = new Deck();
+    this.ended = false;
+    this.round = 0;
     this.deck.shuffle();
     // Give every player starting cards
     for (var i = 0; i < this.players.length; i++) {
+      this.players[i].cards = [];
       this.players[i].addCards(this.deck.pullCards(playcards));
     }
     var rest = this.deck.pullCards(this.deck.getCount());
@@ -31,6 +42,7 @@ export default class Game{
       }else{
         clearInterval(this.gameloop);
         console.log(this.winner.getName() + " won this game! Congratulations");
+        this.update();
       }
     }, speed);
   }
@@ -66,6 +78,7 @@ export default class Game{
           player.setCanplay(false);
         }
       }
+      this.update();
     }
 
     var countCantPlay = this.players.filter((player) => {

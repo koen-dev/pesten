@@ -4,7 +4,8 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, "src/js/app.js")
+    app: path.resolve(__dirname, "src/js/app.jsx"),
+    vendor: ['react', 'react-dom']
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -19,7 +20,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015']
+            presets: ['es2015', 'react']
           }
         }
       },{
