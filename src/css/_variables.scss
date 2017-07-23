@@ -1,6 +1,7 @@
 $cardwidth: 112;
 $cardheight: 156;
 $playboardcolor: #2B6945;
+$buttonColor: #F06060;
 
 @mixin dropshadow($level: 1){
     @if $level == 1{

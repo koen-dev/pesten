@@ -49,7 +49,7 @@ ul{
           background-size: cover;
           background-position: 50% 50%;
           border-radius: 5px;
-          background-image: url(https://media.giphy.com/media/l44Q6Etd5kdSGttXa/giphy.gif);
+          background-image: url("../assets/images/winner.gif");
         }
         .name{
           color: gold;
@@ -81,7 +81,7 @@ ul{
     }
   }
   #piles{
-    padding: 0 20px;
+    padding: 20px;
     &:after{
       content: '';
       display: table;

@@ -1,10 +1,11 @@
 import Card from './Card';
 import cards from './cards.json';
 
-/**
- * Deck Class
- */
 export default class Deck{
+  /**
+   * constructor()
+   * Loading the JSON file cards.json for a 52 card deck
+   */
   constructor(){
     this.cards = [];
     cards.deck.forEach((card) => {
