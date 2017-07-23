@@ -7,13 +7,14 @@ import cards from './cards.json';
 export default class Deck{
   constructor(){
     this.cards = [];
-    for (var i = 0; i < cards.deck.length; i++) {
-      this.cards.push(new Card(cards.deck[i].value, cards.deck[i].suit));
-    }
+    cards.deck.forEach((card) => {
+      this.cards.push(new Card(card.value, card.suit));
+    });
   }
 
   /**
-   * shuffle() shuffles cards
+   * shuffle()
+   * Shuffles the cards
    */
   shuffle(){
     var curIndex = this.cards.length, temp, randIndex;
@@ -27,15 +28,16 @@ export default class Deck{
   }
 
   /**
-   * pullCards() returns array and removes taken cards
-   * default size is 1
+   * pullCards()
+   * returns array and removes taken cards default size is 1
    */
   pullCards(count = 1){
     return this.cards.splice(0, count);
   }
 
   /**
-   * getCount() return current amount of cards in Deck
+   * getCount()
+   * return current amount of cards in Deck
    */
   getCount(){
     return this.cards.length;

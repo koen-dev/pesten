@@ -6,17 +6,15 @@ export default class Player extends React.Component{
     super(props);
   }
 
-  componentDidMount(){
-  }
-
   render(){
+    var classNames = "player" + (this.props.player.winner ? " winner" : "");
     var cards = this.props.player.cards.map((item) =>
-      <Card key={item.value + ":" + item.suit} value={item.value} suit={item.suit}/>
+      <Card key={item.toString()} card={item}/>
     );
     return(
-      <div>
-        <h3>{this.props.player.getName()}</h3>
-        <ul>{cards}</ul>
+      <div className={classNames}>
+        <div className="name">{this.props.player.name}</div>
+        <ul className="cards">{cards}</ul>
       </div>
     )
   }

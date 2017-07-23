@@ -1,22 +1,15 @@
 export default class Player{
   constructor(name){
-    this._name = name;
-    this._canplay = true;
+    this.name = name;
+    this.canplay = true;
+    this.winner = false;
     this.cards = [];
   }
 
-  getCanplay(){
-    return this._canplay;
-  }
-
-  setCanplay(val){
-    this._canplay = val;
-  }
-
-  getName(){
-    return this._name;
-  }
-
+  /**
+   * removeCard(card)
+   * Removes a specific card in players hand.
+   */
   removeCard(card){
     var i = this.cards.indexOf(card);
     if (i > -1) {
@@ -24,10 +17,18 @@ export default class Player{
     }
   }
 
+  /**
+   * addCards(cards)
+   * Adds an array of cards to players hand.
+   */
   addCards(cards){
     this.cards = this.cards.concat(cards);
   }
 
+  /**
+   * getCount()
+   * Returns current count of cards in players hand.
+   */
   getCount(){
     return this.cards.length;
   }

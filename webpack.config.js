@@ -4,7 +4,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
-    app: path.resolve(__dirname, "src/js/app.jsx"),
+    app: path.resolve(__dirname, "src/js/App.jsx"),
     vendor: ['react', 'react-dom']
   },
   output: {
@@ -37,6 +37,9 @@ module.exports = {
       },{
         test: /.json$/,
         loader: 'json-loader'
+      },{
+        test: /\.(eot|svg|ttf|woff|woff2|jpg)$/,
+        use: ["file-loader"]
       }
     ]
   },

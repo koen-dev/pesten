@@ -1,3 +1,7 @@
+$cardwidth: 112;
+$cardheight: 156;
+$playboardcolor: #2B6945;
+
 @mixin dropshadow($level: 1){
     @if $level == 1{
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);

@@ -1,14 +1,10 @@
-export class PickPile{
+class Pile{
   constructor(){
     this.cards = [];
   }
 
   addCards(cards){
-    this.cards = this.cards.concat(cards);
-  }
-
-  getCards(count = 1){
-    return this.cards.splice(0, count);
+    this.cards = cards.concat(this.cards);
   }
 
   getCount(){
@@ -16,16 +12,14 @@ export class PickPile{
   }
 }
 
-export class GamePile{
-  constructor(){
-    this.cards = [];
+export class PickPile extends Pile{
+  pullCards(count = 1){
+    return this.cards.splice(0, count);
   }
+}
 
+export class GamePile extends Pile{
   getTopcard(){
     return this.cards[0];
-  }
-
-  addCards(cards){
-    this.cards = cards.concat(this.cards);
   }
 }

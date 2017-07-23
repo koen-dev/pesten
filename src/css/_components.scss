@@ -1,0 +1,87 @@
+@import "variables";
+
+.card{
+  position: relative;
+  background-color: white;
+  height: #{$cardheight}px;
+  width: #{$cardwidth}px;
+  border-radius: 5px;
+  background-size: 80px;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  @include dropshadow(1);
+  .value{
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    &:after{
+      display: block;
+      content: ' ';
+      background-size: 15px 15px;
+      height: 15px;
+      width: 15px;
+    }
+    &:first-of-type{
+      top: 3px;
+      left: 3px;
+    }
+  }
+  &.Club{
+    background-image: url('../assets/images/club.svg');
+    .value{
+      &:after{
+        background-image: url('../assets/images/club.svg');
+      }
+    }
+  }
+  &.Diamond{
+    background-image: url('../assets/images/diamond.svg');
+    .value{
+      &:after{
+        background-image: url('../assets/images/diamond.svg');
+      }
+    }
+  }
+  &.Heart{
+    background-image: url('../assets/images/heart.svg');
+    .value{
+      &:after{
+        background-image: url('../assets/images/heart.svg');
+      }
+    }
+  }
+  &.Spade{
+    background-image: url('../assets/images/spade.svg');
+    .value{
+      &:after{
+        background-image: url('../assets/images/spade.svg');
+      }
+    }
+  }
+}
+
+$buttonColor: #F06060;
+
+button{
+  padding: 1em 1.5em;
+  border-radius: 5px;
+  border: none;
+  text-transform: uppercase;
+  background-color: $buttonColor;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  box-shadow: 0 6px darken($buttonColor, 30);
+  cursor: pointer;
+  position: relative;
+  outline: none;
+  &:hover{
+    box-shadow: 0 4px darken($buttonColor, 30);
+    top: 2px;
+  }
+  &:active{
+    box-shadow: 0 0;
+    top: 6px;
+  }
+}

@@ -3,96 +3,94 @@ import Deck from './Deck';
 import {GamePile, PickPile} from './Piles';
 
 export default class Game{
-  constructor(){
-
-    this.pile = new PickPile();
-    this.gamepile = new GamePile();
-    this.players = [new Player("Koen"), new Player("Peter"), new Player("Jan"),
-     new Player("Klaas")];
-    this.listeners = [];
+  /**
+   *
+   */
+  constructor(playerNames){
+    if (playerNames && playerNames.length) {
+      this.players = playerNames.map((player) => {
+        return new Player(player);
+      });
+      this.listeners = [];
+    }
   }
 
+  /**
+   * addListener(fn)
+   * Add Listeners that get notified when something changes.
+   */
   addListener(fn){
     this.listeners.push(fn);
   }
 
+  /**
+   * update()
+   * Call this is to let the listeners know that something changed.
+   */
   update(){
     this.listeners.forEach(fn => fn());
   }
 
-  start(playcards = 7, speed = 0){
+  startGame(){
     this.deck = new Deck();
+    this.pullpile = new PickPile();
+    this.gamepile = new GamePile();
     this.ended = false;
-    this.round = 0;
     this.deck.shuffle();
     // Give every player starting cards
-    for (var i = 0; i < this.players.length; i++) {
-      this.players[i].cards = [];
-      this.players[i].addCards(this.deck.pullCards(playcards));
-    }
+    this.players.forEach((player) => {
+      player.canplay = true;
+      player.winner = false;
+      player.cards = [];
+      player.addCards(this.deck.pullCards(7));
+    });
     var rest = this.deck.pullCards(this.deck.getCount());
-    this.pile.addCards(rest);
-    this.gamepile.addCards(this.pile.getCards());
-    console.log("First card on the game pile is " + this.gamepile.cards[0].value + " of " + this.gamepile.cards[0].suit + "'s");
-
-    this.playRound();
-    this.gameloop = setInterval(() => {
-      if (!this.ended) {
-        this.playRound();
-      }else{
-        clearInterval(this.gameloop);
-        console.log(this.winner.getName() + " won this game! Congratulations");
-        this.update();
-      }
-    }, speed);
+    this.pullpile.addCards(rest);
+    this.gamepile.addCards(this.pullpile.pullCards());
+    this.update();
+    while (!this.ended) {
+      this.playRound();
+    }
+    this.update();
   }
 
   playRound(){
-    this.round++;
-    for (var i = 0; i < this.players.length; i++) {
-      var player = this.players[i];
-      var topcard = this.gamepile.getTopcard();
-
-      if (player.getCount() > 0) {
-        var playablecards = player.cards.filter((card) => {
-          return card.value == topcard.value || card.suit == topcard.suit;
-        });
-        if (playablecards.length > 0) {
-          var playcard = playablecards[0];
-          player.removeCard(playcard);
-          this.gamepile.addCards([playcard]);
-
-          console.log(player.getName() + " played  " + playcard.value + " of " + playcard.suit + "'s");
-
-          if (player.getCount() == 0) {
-            this.ended = true;
-            this.winner = player;
-            break;
-          }
-        }else if(this.pile.getCount() > 0){
-          var pulledCard = this.pile.getCards();
-          player.addCards(pulledCard);
-          console.log(player.getName() + " pulled a " + pulledCard[0].value + " of " + pulledCard[0].suit + "'s");
-        }else{
-          console.log("No playable cards and no cards left in pile.");
-          player.setCanplay(false);
-        }
+    this.players.forEach((player) => {
+      if (!this.ended) {
+        this.playerTurn(player);
       }
-      this.update();
-    }
+    });
 
     var countCantPlay = this.players.filter((player) => {
-      return !player.getCanplay();
-    })
+      return !player.canplay;
+    }).length;
 
-    if (countCantPlay.length == this.players.length) {
+    if (countCantPlay == this.players.length) {
       this.ended = true;
-      this.winner = this.players.reduce((a,b) => {
-        return (a.getCount() < b.getCount()) ? a : b;
-      });
-
-      console.log("All players don't have playable cards.");
     }
-    console.log("End of round "+ this.round);
+  }
+
+  playerTurn(player){
+    if (player.getCount() > 0) {
+      let topcard = this.gamepile.getTopcard();
+      var playablecards = player.cards.filter((card) => {
+        return card.value == topcard.value || card.suit == topcard.suit;
+      });
+      if (playablecards.length > 0) {
+        let playcard = playablecards[0];
+        player.removeCard(playcard);
+        this.gamepile.addCards([playcard]);
+        console.log(player.name + " played a " + playcard.value + " of " + playcard.suit + "'s");
+        if (player.getCount() == 0) {
+          player.winner = true;
+          this.ended = true;
+        }
+      }else if(this.pullpile.getCount() > 0){
+        let pulledCard = this.pullpile.pullCards();
+        player.addCards(pulledCard);
+      }else{
+        player.canplay = false;
+      }
+    }
   }
 }
